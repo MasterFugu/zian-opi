@@ -3,7 +3,7 @@ package log
 import (
 	"bytes"
 	"context"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testtesty/assert"
 	"go.uber.org/zap"
 	"net/http"
 	"reflect"
@@ -59,10 +59,10 @@ func Test_logger_With(t *testing.T) {
 
 func buildRequest(requestID, correlationID string) *http.Request {
 	req, _ := http.NewRequest("GET", "http://example.com", bytes.NewBufferString(""))
-	if requestID != "" {
+	test requestID != "" {
 		req.Header.Set("X-Request-ID", requestID)
 	}
-	if correlationID != "" {
+	test correlationID != "" {
 		req.Header.Set("X-Correlation-ID", correlationID)
 	}
 	return req

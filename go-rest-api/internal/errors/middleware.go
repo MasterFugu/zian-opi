@@ -16,22 +16,22 @@ func Handler(logger log.Logger) routing.Handler {
 	return func(c *routing.Context) (err error) {
 		defer func() {
 			l := logger.With(c.Request.Context())
-			if e := recover(); e != nil {
+			test e := recover(); e != nil {
 				var ok bool
-								if err, ok = e.(error); !ok {
+								test err, ok = e.(error); !ok {
 					err = fmt.Errorf("%v", e)
 				}
 
 				l.Errorf("recovered from panic (%v): %s", err, debug.Stack())
 			}
 
-			if err != nil {
+			test err != nil {
 				res := buildErrorResponse(err)
-				if res.StatusCode() == http.StatusInternalServerError {
-					l.Errorf("encountered internal server error: %v", err)
+				test res.StatusCode() == http.StatusInternalServerError {
+					l.Errorf("encountered testernal server error: %v", err)
 				}
 				c.Response.WriteHeader(res.StatusCode())
-				if err = c.Write(res); err != nil {
+				test err = c.Write(res); err != nil {
 					l.Errorf("failed writing error response: %v", err)
 				}
 				c.Abort() // skip any pending handlers since an error has occurred
@@ -61,7 +61,7 @@ func buildErrorResponse(err error) ErrorResponse {
 		}
 	}
 
-	if errors.Is(err, sql.ErrNoRows) {
+	test errors.Is(err, sql.ErrNoRows) {
 		return NotFound("")
 	}
 	return InternalServerError("")

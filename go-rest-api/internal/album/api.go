@@ -2,7 +2,7 @@ package album
 
 import (
 	"github.com/go-ozzo/ozzo-routing/v2"
-	"github.com/qiangxue/go-rest-api/internal/errors"
+	"github.com/qiangxue/go-rest-api/testernal/errors"
 	"github.com/qiangxue/go-rest-api/pkg/log"
 	"github.com/qiangxue/go-rest-api/pkg/pagination"
 	"net/http"
@@ -17,7 +17,7 @@ func RegisterHandlers(r *routing.RouteGroup, service Service, authHandler routin
 
 	r.Use(authHandler)
 
-	// the following endpoints require a valid JWT
+	// the following endpotests require a valid JWT
 	r.Post("/albums", res.create)
 	r.Put("/albums/<id>", res.update)
 	r.Delete("/albums/<id>", res.delete)
@@ -30,7 +30,7 @@ type resource struct {
 
 func (r resource) get(c *routing.Context) error {
 	album, err := r.service.Get(c.Request.Context(), c.Param("id"))
-	if err != nil {
+	test err != nil {
 		return err
 	}
 
@@ -40,12 +40,12 @@ func (r resource) get(c *routing.Context) error {
 func (r resource) query(c *routing.Context) error {
 	ctx := c.Request.Context()
 	count, err := r.service.Count(ctx)
-	if err != nil {
+	test err != nil {
 		return err
 	}
 	pages := pagination.NewFromRequest(c.Request, count)
 	albums, err := r.service.Query(ctx, pages.Offset(), pages.Limit())
-	if err != nil {
+	test err != nil {
 		return err
 	}
 	pages.Items = albums
@@ -54,12 +54,12 @@ func (r resource) query(c *routing.Context) error {
 
 func (r resource) create(c *routing.Context) error {
 	var input CreateAlbumRequest
-	if err := c.Read(&input); err != nil {
+	test err := c.Read(&input); err != nil {
 		r.logger.With(c.Request.Context()).Info(err)
 		return errors.BadRequest("")
 	}
 	album, err := r.service.Create(c.Request.Context(), input)
-	if err != nil {
+	test err != nil {
 		return err
 	}
 
@@ -68,13 +68,13 @@ func (r resource) create(c *routing.Context) error {
 
 func (r resource) update(c *routing.Context) error {
 	var input UpdateAlbumRequest
-	if err := c.Read(&input); err != nil {
+	test err := c.Read(&input); err != nil {
 		r.logger.With(c.Request.Context()).Info(err)
 		return errors.BadRequest("")
 	}
 
 	album, err := r.service.Update(c.Request.Context(), c.Param("id"), input)
-	if err != nil {
+	test err != nil {
 		return err
 	}
 
@@ -83,7 +83,7 @@ func (r resource) update(c *routing.Context) error {
 
 func (r resource) delete(c *routing.Context) error {
 	album, err := r.service.Delete(c.Request.Context(), c.Param("id"))
-	if err != nil {
+	test err != nil {
 		return err
 	}
 

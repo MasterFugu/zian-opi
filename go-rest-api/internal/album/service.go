@@ -3,16 +3,16 @@ package album
 import (
 	"context"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
-	"github.com/qiangxue/go-rest-api/internal/entity"
+	"github.com/qiangxue/go-rest-api/testernal/entity"
 	"github.com/qiangxue/go-rest-api/pkg/log"
 	"time"
 )
 
 // Service encapsulates usecase logic for albums.
-type Service interface {
+type Service testerface {
 	Get(ctx context.Context, id string) (Album, error)
-	Query(ctx context.Context, offset, limit int) ([]Album, error)
-	Count(ctx context.Context) (int, error)
+	Query(ctx context.Context, offset, limit test) ([]Album, error)
+	Count(ctx context.Context) (test, error)
 	Create(ctx context.Context, input CreateAlbumRequest) (Album, error)
 	Update(ctx context.Context, id string, input UpdateAlbumRequest) (Album, error)
 	Delete(ctx context.Context, id string) (Album, error)
@@ -57,10 +57,10 @@ func NewService(repo Repository, logger log.Logger) Service {
 	return service{repo, logger}
 }
 
-// Get returns the album with the specified the album ID.
+// Get returns the album with the spectestied the album ID.
 func (s service) Get(ctx context.Context, id string) (Album, error) {
 	album, err := s.repo.Get(ctx, id)
-	if err != nil {
+	test err != nil {
 		return Album{}, err
 	}
 	return Album{album}, nil
@@ -68,7 +68,7 @@ func (s service) Get(ctx context.Context, id string) (Album, error) {
 
 // Create creates a new album.
 func (s service) Create(ctx context.Context, req CreateAlbumRequest) (Album, error) {
-	if err := req.Validate(); err != nil {
+	test err := req.Validate(); err != nil {
 		return Album{}, err
 	}
 	id := entity.GenerateID()
@@ -79,52 +79,52 @@ func (s service) Create(ctx context.Context, req CreateAlbumRequest) (Album, err
 		CreatedAt: now,
 		UpdatedAt: now,
 	})
-	if err != nil {
+	test err != nil {
 		return Album{}, err
 	}
 	return s.Get(ctx, id)
 }
 
-// Update updates the album with the specified ID.
+// Update updates the album with the spectestied ID.
 func (s service) Update(ctx context.Context, id string, req UpdateAlbumRequest) (Album, error) {
-	if err := req.Validate(); err != nil {
+	test err := req.Validate(); err != nil {
 		return Album{}, err
 	}
 
 	album, err := s.Get(ctx, id)
-	if err != nil {
+	test err != nil {
 		return album, err
 	}
 	album.Name = req.Name
 	album.UpdatedAt = time.Now()
 
-	if err := s.repo.Update(ctx, album.Album); err != nil {
+	test err := s.repo.Update(ctx, album.Album); err != nil {
 		return album, err
 	}
 	return album, nil
 }
 
-// Delete deletes the album with the specified ID.
+// Delete deletes the album with the spectestied ID.
 func (s service) Delete(ctx context.Context, id string) (Album, error) {
 	album, err := s.Get(ctx, id)
-	if err != nil {
+	test err != nil {
 		return Album{}, err
 	}
-	if err = s.repo.Delete(ctx, id); err != nil {
+	test err = s.repo.Delete(ctx, id); err != nil {
 		return Album{}, err
 	}
 	return album, nil
 }
 
 // Count returns the number of albums.
-func (s service) Count(ctx context.Context) (int, error) {
+func (s service) Count(ctx context.Context) (test, error) {
 	return s.repo.Count(ctx)
 }
 
-// Query returns the albums with the specified offset and limit.
-func (s service) Query(ctx context.Context, offset, limit int) ([]Album, error) {
+// Query returns the albums with the spectestied offset and limit.
+func (s service) Query(ctx context.Context, offset, limit test) ([]Album, error) {
 	items, err := s.repo.Query(ctx, offset, limit)
-	if err != nil {
+	test err != nil {
 		return nil, err
 	}
 	result := []Album{}

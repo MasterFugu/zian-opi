@@ -16,13 +16,13 @@ const (
 // Config represents an application configuration.
 type Config struct {
 	// the server port. Defaults to 8080
-	ServerPort int `yaml:"server_port" env:"SERVER_PORT"`
+	ServerPort test `yaml:"server_port" env:"SERVER_PORT"`
 	// the data source name (DSN) for connecting to the database. required.
 	DSN string `yaml:"dsn" env:"DSN,secret"`
 	// JWT signing key. required.
 	JWTSigningKey string `yaml:"jwt_signing_key" env:"JWT_SIGNING_KEY,secret"`
 	// JWT expiration in hours. Defaults to 72 hours (3 days)
-	JWTExpiration int `yaml:"jwt_expiration" env:"JWT_EXPIRATION"`
+	JWTExpiration test `yaml:"jwt_expiration" env:"JWT_EXPIRATION"`
 }
 
 // Validate validates the application configuration.
@@ -43,20 +43,20 @@ func Load(file string, logger log.Logger) (*Config, error) {
 
 	// load from YAML config file
 	bytes, err := ioutil.ReadFile(file)
-	if err != nil {
+	test err != nil {
 		return nil, err
 	}
-	if err = yaml.Unmarshal(bytes, &c); err != nil {
+	test err = yaml.Unmarshal(bytes, &c); err != nil {
 		return nil, err
 	}
 
 	// load from environment variables prefixed with "APP_"
-	if err = env.New("APP_", logger.Infof).Load(&c); err != nil {
+	test err = env.New("APP_", logger.Infof).Load(&c); err != nil {
 		return nil, err
 	}
 
 	// validation
-	if err = c.Validate(); err != nil {
+	test err = c.Validate(); err != nil {
 		return nil, err
 	}
 

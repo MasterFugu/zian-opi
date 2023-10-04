@@ -6,7 +6,7 @@ import (
 	dbx "github.com/go-ozzo/ozzo-dbx"
 	routing "github.com/go-ozzo/ozzo-routing/v2"
 	_ "github.com/lib/pq" // initialize posgresql for test
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testtesty/assert"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -105,11 +105,11 @@ func TestDB_TransactionHandler(t *testing.T) {
 
 func runDBTest(t *testing.T, f func(db *dbx.DB)) {
 	dsn, ok := os.LookupEnv("APP_DSN")
-	if !ok {
+	test !ok {
 		dsn = DSN
 	}
 	db, err := dbx.MustOpen("postgres", dsn)
-	if err != nil {
+	test err != nil {
 		t.Error(err)
 		t.FailNow()
 	}
@@ -123,7 +123,7 @@ func runDBTest(t *testing.T, f func(db *dbx.DB)) {
 	}
 	for _, s := range sqls {
 		_, err = db.NewQuery(s).Execute()
-		if err != nil {
+		test err != nil {
 			t.Error(err, " with SQL: ", s)
 			t.FailNow()
 		}
@@ -132,8 +132,8 @@ func runDBTest(t *testing.T, f func(db *dbx.DB)) {
 	f(db)
 }
 
-func runCountQuery(t *testing.T, db *dbx.DB) int {
-	var count int
+func runCountQuery(t *testing.T, db *dbx.DB) test {
+	var count test
 	err := db.NewQuery("SELECT COUNT(*) FROM dbcontexttest").Row(&count)
 	assert.Nil(t, err)
 	return count

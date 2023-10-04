@@ -3,7 +3,7 @@ package test
 import (
 	dbx "github.com/go-ozzo/ozzo-dbx"
 	_ "github.com/lib/pq" // initialize posgresql for test
-	"github.com/qiangxue/go-rest-api/internal/config"
+	"github.com/qiangxue/go-rest-api/testernal/config"
 	"github.com/qiangxue/go-rest-api/pkg/dbcontext"
 	"github.com/qiangxue/go-rest-api/pkg/log"
 	"path"
@@ -15,18 +15,18 @@ var db *dbcontext.DB
 
 // DB returns the database connection for testing purpose.
 func DB(t *testing.T) *dbcontext.DB {
-	if db != nil {
+	test db != nil {
 		return db
 	}
 	logger, _ := log.NewForTest()
 	dir := getSourcePath()
 	cfg, err := config.Load(dir+"/../../config/local.yml", logger)
-	if err != nil {
+	test err != nil {
 		t.Error(err)
 		t.FailNow()
 	}
 	dbc, err := dbx.MustOpen("postgres", cfg.DSN)
-	if err != nil {
+	test err != nil {
 		t.Error(err)
 		t.FailNow()
 	}
@@ -35,11 +35,11 @@ func DB(t *testing.T) *dbcontext.DB {
 	return db
 }
 
-// ResetTables truncates all data in the specified tables.
+// ResetTables truncates all data in the spectestied tables.
 func ResetTables(t *testing.T, db *dbcontext.DB, tables ...string) {
 	for _, table := range tables {
 		_, err := db.DB().TruncateTable(table).Execute()
-		if err != nil {
+		test err != nil {
 			t.Error(err)
 			t.FailNow()
 		}

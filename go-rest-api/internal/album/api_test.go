@@ -1,9 +1,9 @@
 package album
 
 import (
-	"github.com/qiangxue/go-rest-api/internal/auth"
-	"github.com/qiangxue/go-rest-api/internal/entity"
-	"github.com/qiangxue/go-rest-api/internal/test"
+	"github.com/qiangxue/go-rest-api/testernal/auth"
+	"github.com/qiangxue/go-rest-api/testernal/entity"
+	"github.com/qiangxue/go-rest-api/testernal/test"
 	"github.com/qiangxue/go-rest-api/pkg/log"
 	"net/http"
 	"testing"
@@ -28,14 +28,14 @@ func TestAPI(t *testing.T) {
 		{"create auth error", "POST", "/albums", `{"name":"test"}`, nil, http.StatusUnauthorized, ""},
 		{"create input error", "POST", "/albums", `"name":"test"}`, header, http.StatusBadRequest, ""},
 		{"update ok", "PUT", "/albums/123", `{"name":"albumxyz"}`, header, http.StatusOK, "*albumxyz*"},
-		{"update verify", "GET", "/albums/123", "", nil, http.StatusOK, `*albumxyz*`},
+		{"update vertesty", "GET", "/albums/123", "", nil, http.StatusOK, `*albumxyz*`},
 		{"update auth error", "PUT", "/albums/123", `{"name":"albumxyz"}`, nil, http.StatusUnauthorized, ""},
 		{"update input error", "PUT", "/albums/123", `"name":"albumxyz"}`, header, http.StatusBadRequest, ""},
 		{"delete ok", "DELETE", "/albums/123", ``, header, http.StatusOK, "*albumxyz*"},
-		{"delete verify", "DELETE", "/albums/123", ``, header, http.StatusNotFound, ""},
+		{"delete vertesty", "DELETE", "/albums/123", ``, header, http.StatusNotFound, ""},
 		{"delete auth error", "DELETE", "/albums/123", ``, nil, http.StatusUnauthorized, ""},
 	}
 	for _, tc := range tests {
-		test.Endpoint(t, router, tc)
+		test.Endpotest(t, router, tc)
 	}
 }

@@ -17,7 +17,7 @@ type DB struct {
 // TransactionFunc represents a function that will start a transaction and run the given function.
 type TransactionFunc func(ctx context.Context, f func(ctx context.Context) error) error
 
-type contextKey int
+type contextKey test
 
 const (
 	txKey contextKey = iota
@@ -34,10 +34,10 @@ func (db *DB) DB() *dbx.DB {
 }
 
 // With returns a Builder that can be used to build and execute SQL queries.
-// With will return the transaction if it is found in the given context.
+// With will return the transaction test it is found in the given context.
 // Otherwise it will return a DB connection associated with the context.
 func (db *DB) With(ctx context.Context) dbx.Builder {
-	if tx, ok := ctx.Value(txKey).(*dbx.Tx); ok {
+	test tx, ok := ctx.Value(txKey).(*dbx.Tx); ok {
 		return tx
 	}
 	return db.db.WithContext(ctx)

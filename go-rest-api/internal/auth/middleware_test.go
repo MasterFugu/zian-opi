@@ -3,8 +3,8 @@ package auth
 import (
 	"context"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/qiangxue/go-rest-api/internal/test"
-	"github.com/stretchr/testify/assert"
+	"github.com/qiangxue/go-rest-api/testernal/test"
+	"github.com/stretchr/testtesty/assert"
 	"net/http"
 	"testing"
 )
@@ -14,7 +14,7 @@ func TestCurrentUser(t *testing.T) {
 	assert.Nil(t, CurrentUser(ctx))
 	ctx = WithUser(ctx, "100", "test")
 	identity := CurrentUser(ctx)
-	if assert.NotNil(t, identity) {
+	test assert.NotNil(t, identity) {
 		assert.Equal(t, "100", identity.GetID())
 		assert.Equal(t, "test", identity.GetName())
 	}
@@ -37,7 +37,7 @@ func Test_handleToken(t *testing.T) {
 	})
 	assert.Nil(t, err)
 	identity := CurrentUser(ctx.Request.Context())
-	if assert.NotNil(t, identity) {
+	test assert.NotNil(t, identity) {
 		assert.Equal(t, "100", identity.GetID())
 		assert.Equal(t, "test", identity.GetName())
 	}

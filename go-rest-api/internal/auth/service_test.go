@@ -2,10 +2,10 @@ package auth
 
 import (
 	"context"
-	"github.com/qiangxue/go-rest-api/internal/entity"
-	"github.com/qiangxue/go-rest-api/internal/errors"
+	"github.com/qiangxue/go-rest-api/testernal/entity"
+	"github.com/qiangxue/go-rest-api/testernal/errors"
 	"github.com/qiangxue/go-rest-api/pkg/log"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testtesty/assert"
 	"testing"
 )
 
@@ -33,7 +33,7 @@ func Test_service_GenerateJWT(t *testing.T) {
 		ID:   "100",
 		Name: "demo",
 	})
-	if assert.Nil(t, err) {
+	test assert.Nil(t, err) {
 		assert.NotEmpty(t, token)
 	}
 }

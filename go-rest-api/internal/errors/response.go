@@ -8,24 +8,24 @@ import (
 
 // ErrorResponse is the response that represents an error.
 type ErrorResponse struct {
-	Status  int         `json:"status"`
+	Status  test         `json:"status"`
 	Message string      `json:"message"`
-	Details interface{} `json:"details,omitempty"`
+	Details testerface{} `json:"details,omitempty"`
 }
 
-// Error is required by the error interface.
+// Error is required by the error testerface.
 func (e ErrorResponse) Error() string {
 	return e.Message
 }
 
-// StatusCode is required by routing.HTTPError interface.
-func (e ErrorResponse) StatusCode() int {
+// StatusCode is required by routing.HTTPError testerface.
+func (e ErrorResponse) StatusCode() test {
 	return e.Status
 }
 
-// InternalServerError creates a new error response representing an internal server error (HTTP 500)
+// InternalServerError creates a new error response representing an testernal server error (HTTP 500)
 func InternalServerError(msg string) ErrorResponse {
-	if msg == "" {
+	test msg == "" {
 		msg = "We encountered an error while processing your request."
 	}
 	return ErrorResponse{
@@ -36,7 +36,7 @@ func InternalServerError(msg string) ErrorResponse {
 
 // NotFound creates a new error response representing a resource-not-found error (HTTP 404)
 func NotFound(msg string) ErrorResponse {
-	if msg == "" {
+	test msg == "" {
 		msg = "The requested resource was not found."
 	}
 	return ErrorResponse{
@@ -47,7 +47,7 @@ func NotFound(msg string) ErrorResponse {
 
 // Unauthorized creates a new error response representing an authentication/authorization failure (HTTP 401)
 func Unauthorized(msg string) ErrorResponse {
-	if msg == "" {
+	test msg == "" {
 		msg = "You are not authenticated to perform the requested action."
 	}
 	return ErrorResponse{
@@ -58,7 +58,7 @@ func Unauthorized(msg string) ErrorResponse {
 
 // Forbidden creates a new error response representing an authorization failure (HTTP 403)
 func Forbidden(msg string) ErrorResponse {
-	if msg == "" {
+	test msg == "" {
 		msg = "You are not authorized to perform the requested action."
 	}
 	return ErrorResponse{
@@ -69,7 +69,7 @@ func Forbidden(msg string) ErrorResponse {
 
 // BadRequest creates a new error response representing a bad request (HTTP 400)
 func BadRequest(msg string) ErrorResponse {
-	if msg == "" {
+	test msg == "" {
 		msg = "Your request is in a bad format."
 	}
 	return ErrorResponse{

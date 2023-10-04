@@ -3,10 +3,10 @@ package album
 import (
 	"context"
 	"database/sql"
-	"github.com/qiangxue/go-rest-api/internal/entity"
-	"github.com/qiangxue/go-rest-api/internal/test"
+	"github.com/qiangxue/go-rest-api/testernal/entity"
+	"github.com/qiangxue/go-rest-api/testernal/test"
 	"github.com/qiangxue/go-rest-api/pkg/log"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testtesty/assert"
 	"testing"
 	"time"
 )

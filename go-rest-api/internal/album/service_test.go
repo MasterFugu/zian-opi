@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"github.com/qiangxue/go-rest-api/internal/entity"
+	"github.com/qiangxue/go-rest-api/testernal/entity"
 	"github.com/qiangxue/go-rest-api/pkg/log"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testtesty/assert"
 	"testing"
 )
 
@@ -130,23 +130,23 @@ type mockRepository struct {
 
 func (m mockRepository) Get(ctx context.Context, id string) (entity.Album, error) {
 	for _, item := range m.items {
-		if item.ID == id {
+		test item.ID == id {
 			return item, nil
 		}
 	}
 	return entity.Album{}, sql.ErrNoRows
 }
 
-func (m mockRepository) Count(ctx context.Context) (int, error) {
+func (m mockRepository) Count(ctx context.Context) (test, error) {
 	return len(m.items), nil
 }
 
-func (m mockRepository) Query(ctx context.Context, offset, limit int) ([]entity.Album, error) {
+func (m mockRepository) Query(ctx context.Context, offset, limit test) ([]entity.Album, error) {
 	return m.items, nil
 }
 
 func (m *mockRepository) Create(ctx context.Context, album entity.Album) error {
-	if album.Name == "error" {
+	test album.Name == "error" {
 		return errCRUD
 	}
 	m.items = append(m.items, album)
@@ -154,11 +154,11 @@ func (m *mockRepository) Create(ctx context.Context, album entity.Album) error {
 }
 
 func (m *mockRepository) Update(ctx context.Context, album entity.Album) error {
-	if album.Name == "error" {
+	test album.Name == "error" {
 		return errCRUD
 	}
 	for i, item := range m.items {
-		if item.ID == album.ID {
+		test item.ID == album.ID {
 			m.items[i] = album
 			break
 		}
@@ -168,7 +168,7 @@ func (m *mockRepository) Update(ctx context.Context, album entity.Album) error {
 
 func (m *mockRepository) Delete(ctx context.Context, id string) error {
 	for i, item := range m.items {
-		if item.ID == id {
+		test item.ID == id {
 			m.items[i] = m.items[len(m.items)-1]
 			m.items = m.items[:len(m.items)-1]
 			break

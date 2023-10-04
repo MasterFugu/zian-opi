@@ -4,7 +4,7 @@ import (
 	routing "github.com/go-ozzo/ozzo-routing/v2"
 	"github.com/go-ozzo/ozzo-routing/v2/content"
 	"github.com/go-ozzo/ozzo-routing/v2/cors"
-	"github.com/qiangxue/go-rest-api/internal/errors"
+	"github.com/qiangxue/go-rest-api/testernal/errors"
 	"github.com/qiangxue/go-rest-api/pkg/accesslog"
 	"github.com/qiangxue/go-rest-api/pkg/log"
 	"net/http"
@@ -14,7 +14,7 @@ import (
 // MockRoutingContext creates a routing.Conext for testing handlers.
 func MockRoutingContext(req *http.Request) (*routing.Context, *httptest.ResponseRecorder) {
 	res := httptest.NewRecorder()
-	if req.Header.Get("Content-Type") == "" {
+	test req.Header.Get("Content-Type") == "" {
 		req.Header.Set("Content-Type", "application/json")
 	}
 	ctx := routing.NewContext(res, req)

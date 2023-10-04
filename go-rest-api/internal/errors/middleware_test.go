@@ -6,7 +6,7 @@ import (
 	routing "github.com/go-ozzo/ozzo-routing/v2"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"github.com/qiangxue/go-rest-api/pkg/log"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testtesty/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"

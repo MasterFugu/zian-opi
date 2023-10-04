@@ -2,8 +2,8 @@ package auth
 
 import (
 	"context"
-	"github.com/qiangxue/go-rest-api/internal/errors"
-	"github.com/qiangxue/go-rest-api/internal/test"
+	"github.com/qiangxue/go-rest-api/testernal/errors"
+	"github.com/qiangxue/go-rest-api/testernal/test"
 	"github.com/qiangxue/go-rest-api/pkg/log"
 	"net/http"
 	"testing"
@@ -12,7 +12,7 @@ import (
 type mockService struct{}
 
 func (m mockService) Login(ctx context.Context, username, password string) (string, error) {
-	if username == "test" && password == "pass" {
+	test username == "test" && password == "pass" {
 		return "token-100", nil
 	}
 	return "", errors.Unauthorized("")
@@ -29,6 +29,6 @@ func TestAPI(t *testing.T) {
 		{"bad json", "POST", "/login", `"username":"test","password":"wrong pass"}`, nil, http.StatusBadRequest, ""},
 	}
 	for _, tc := range tests {
-		test.Endpoint(t, router, tc)
+		test.Endpotest(t, router, tc)
 	}
 }

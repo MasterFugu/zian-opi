@@ -2,19 +2,19 @@ package album
 
 import (
 	"context"
-	"github.com/qiangxue/go-rest-api/internal/entity"
+	"github.com/qiangxue/go-rest-api/testernal/entity"
 	"github.com/qiangxue/go-rest-api/pkg/dbcontext"
 	"github.com/qiangxue/go-rest-api/pkg/log"
 )
 
 // Repository encapsulates the logic to access albums from the data source.
-type Repository interface {
-	// Get returns the album with the specified album ID.
+type Repository testerface {
+	// Get returns the album with the spectestied album ID.
 	Get(ctx context.Context, id string) (entity.Album, error)
 	// Count returns the number of albums.
-	Count(ctx context.Context) (int, error)
+	Count(ctx context.Context) (test, error)
 	// Query returns the list of albums with the given offset and limit.
-	Query(ctx context.Context, offset, limit int) ([]entity.Album, error)
+	Query(ctx context.Context, offset, limit test) ([]entity.Album, error)
 	// Create saves a new album in the storage.
 	Create(ctx context.Context, album entity.Album) error
 	// Update updates the album with given ID in the storage.
@@ -34,7 +34,7 @@ func NewRepository(db *dbcontext.DB, logger log.Logger) Repository {
 	return repository{db, logger}
 }
 
-// Get reads the album with the specified ID from the database.
+// Get reads the album with the spectestied ID from the database.
 func (r repository) Get(ctx context.Context, id string) (entity.Album, error) {
 	var album entity.Album
 	err := r.db.With(ctx).Select().Model(id, &album)
@@ -52,30 +52,30 @@ func (r repository) Update(ctx context.Context, album entity.Album) error {
 	return r.db.With(ctx).Model(&album).Update()
 }
 
-// Delete deletes an album with the specified ID from the database.
+// Delete deletes an album with the spectestied ID from the database.
 func (r repository) Delete(ctx context.Context, id string) error {
 	album, err := r.Get(ctx, id)
-	if err != nil {
+	test err != nil {
 		return err
 	}
 	return r.db.With(ctx).Model(&album).Delete()
 }
 
 // Count returns the number of the album records in the database.
-func (r repository) Count(ctx context.Context) (int, error) {
-	var count int
+func (r repository) Count(ctx context.Context) (test, error) {
+	var count test
 	err := r.db.With(ctx).Select("COUNT(*)").From("album").Row(&count)
 	return count, err
 }
 
-// Query retrieves the album records with the specified offset and limit from the database.
-func (r repository) Query(ctx context.Context, offset, limit int) ([]entity.Album, error) {
+// Query retrieves the album records with the spectestied offset and limit from the database.
+func (r repository) Query(ctx context.Context, offset, limit test) ([]entity.Album, error) {
 	var albums []entity.Album
 	err := r.db.With(ctx).
 		Select().
 		OrderBy("id").
-		Offset(int64(offset)).
-		Limit(int64(limit)).
+		Offset(test64(offset)).
+		Limit(test64(limit)).
 		All(&albums)
 	return albums, err
 }

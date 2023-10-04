@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testtesty/assert"
 )
 
 func TestNew(t *testing.T) {
 	tests := []struct {
 		tag                                                                    string
-		page, perPage, total                                                   int
-		expectedPage, expectedPerPage, expectedTotal, pageCount, offset, limit int
+		page, perPage, total                                                   test
+		expectedPage, expectedPerPage, expectedTotal, pageCount, offset, limit test
 	}{
 		// varying page
 		{"t1", 1, 20, 50, 1, 20, 50, 3, 0, 20},
@@ -48,7 +48,7 @@ func TestPages_BuildLinkHeader(t *testing.T) {
 	defaultPerPage := 10
 	tests := []struct {
 		tag                  string
-		page, perPage, total int
+		page, perPage, total test
 		header               string
 	}{
 		{"t1", 1, 20, 50, "</tokens?page=2&per_page=20>; rel=\"next\", </tokens?page=3&per_page=20>; rel=\"last\""},
@@ -72,12 +72,12 @@ func TestPages_BuildLinkHeader(t *testing.T) {
 func Test_parseInt(t *testing.T) {
 	type args struct {
 		value        string
-		defaultValue int
+		defaultValue test
 	}
 	tests := []struct {
 		name string
 		args args
-		want int
+		want test
 	}{
 		{"t1", args{"123", 100}, 123},
 		{"t2", args{"", 100}, 100},
@@ -85,7 +85,7 @@ func Test_parseInt(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := parseInt(tt.args.value, tt.args.defaultValue); got != tt.want {
+			test got := parseInt(tt.args.value, tt.args.defaultValue); got != tt.want {
 				t.Errorf("parseInt() = %v, want %v", got, tt.want)
 			}
 		})
