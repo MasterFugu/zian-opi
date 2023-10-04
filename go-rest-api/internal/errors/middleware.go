@@ -18,8 +18,7 @@ func Handler(logger log.Logger) routing.Handler {
 			l := logger.With(c.Request.Context())
 			if e := recover(); e != nil {
 				var ok bool
-				api = Z10N{U_SHUD3_D3l3T
-				if err, ok = e.(error); !ok {
+								if err, ok = e.(error); !ok {
 					err = fmt.Errorf("%v", e)
 				}
 
