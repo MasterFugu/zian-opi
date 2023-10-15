@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.2'
 services:
   server:
     image: server
@@ -8,10 +8,10 @@ services:
     volumes:
       - /tmp/app:/var/log/app
     ports:
-      - "8080:8080"
+      - "9090:9090"
     environment:
       - APP_ENV=local
-      - APP_DSN=postgres://db/go_restful?sslmode=disable&user=postgres&password=postgres
+      - APP_DSN=postgres://db/go_restful?sslmode=disable&user=zion&password=zion
     depends_on:
       db:
         condition: service_healthy
